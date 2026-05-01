@@ -320,7 +320,7 @@
                         <span class="material-symbols-outlined text-sm">show_chart</span> MODEL ACCURACY
                     </div>
                     <div class="w-full h-64 rounded-lg bg-surface-dim/80 flex items-center justify-center overflow-hidden border border-white/5">
-                        <img id="accuracy-img" src="http://localhost:5000/outputs/accuracy_curve.png" alt="Accuracy Curve" class="w-full h-full object-contain opacity-80 mix-blend-screen" onerror="this.src=''; this.parentElement.innerHTML='<span class=\\'text-on-surface-variant text-sm font-mono-data\\'>Awaiting Training Data...</span>';">
+                        <img id="accuracy-img" src="/outputs/accuracy_curve.png" alt="Accuracy Curve" class="w-full h-full object-contain opacity-80 mix-blend-screen" onerror="this.src=''; this.parentElement.innerHTML='<span class=\\'text-on-surface-variant text-sm font-mono-data\\'>Awaiting Training Data...</span>';">
                     </div>
                 </div>
 
@@ -331,7 +331,7 @@
                         <span class="material-symbols-outlined text-sm">trending_down</span> LOSS OPTIMIZATION
                     </div>
                     <div class="w-full h-64 rounded-lg bg-surface-dim/80 flex items-center justify-center overflow-hidden border border-white/5">
-                        <img id="loss-img" src="http://localhost:5000/outputs/loss_curve.png" alt="Loss Curve" class="w-full h-full object-contain opacity-80 mix-blend-screen" onerror="this.src=''; this.parentElement.innerHTML='<span class=\\'text-on-surface-variant text-sm font-mono-data\\'>Awaiting Training Data...</span>';">
+                        <img id="loss-img" src="/outputs/loss_curve.png" alt="Loss Curve" class="w-full h-full object-contain opacity-80 mix-blend-screen" onerror="this.src=''; this.parentElement.innerHTML='<span class=\\'text-on-surface-variant text-sm font-mono-data\\'>Awaiting Training Data...</span>';">
                     </div>
                 </div>
             </div>
@@ -399,7 +399,7 @@
         }
     });
 
-    function handleFile(file) {
+    async function handleFile(file) {
         if (!file.type.startsWith('image/')) return alert('Please upload an image file.');
 
         // 1. Preview Image
@@ -424,12 +424,12 @@
         const formData = new FormData();
         formData.append('image', file);
 
-        fetch('http://localhost:5000/predict', {
-            method: 'POST',
-            body: formData
-        })
-        .then(response => response.json())
-        .then(data => {
+        try {
+            const response = await fetch('/predict', {
+                method: 'POST',
+                body: formData
+            });
+            const data = await response.json();
             if (data.error) {
                 alert('Error: ' + data.error);
                 resetScanningState();

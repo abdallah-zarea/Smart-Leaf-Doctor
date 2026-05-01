@@ -7,7 +7,7 @@ from flask_cors import CORS
 from PIL import Image
 import io
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder=os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'frontend'), static_url_path='')
 CORS(app)  # Enable CORS for all routes
 
 # Define absolute paths based on this script's location
@@ -178,6 +178,10 @@ def predict():
 def serve_output(filename):
     outputs_dir = os.path.join(BASE_DIR, 'outputs')
     return send_from_directory(outputs_dir, filename)
+
+@app.route('/')
+def serve_index():
+    return send_from_directory(app.static_folder, 'index.html')
 
 if __name__ == '__main__':
     print("Starting Flask server on port 5000...")
