@@ -424,12 +424,12 @@
         const formData = new FormData();
         formData.append('image', file);
 
-        try {
-            const response = await fetch('/predict', {
-                method: 'POST',
-                body: formData
-            });
-            const data = await response.json();
+        fetch('/predict', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
             if (data.error) {
                 alert('Error: ' + data.error);
                 resetScanningState();
@@ -438,7 +438,7 @@
             showResults(data);
         })
         .catch(err => {
-            alert('Server connection failed. Make sure Flask backend is running on port 5000.');
+            alert('Server connection failed. Make sure Flask backend is running.');
             console.error(err);
             resetScanningState();
         });
