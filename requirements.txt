@@ -1,6 +1,6 @@
 tensorflow
 streamlit
-numpy
+numpy<2.0.0
 pandas
 matplotlib
 seaborn
@@ -9,8 +9,6 @@ Pillow
 kaggle
 opencv-python-headless==4.9.0.80
 notebook
-
 gunicorn
-
 Flask
 flask-cors
