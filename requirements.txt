@@ -1,0 +1,13 @@
+tensorflow
+streamlit
+numpy
+pandas
+matplotlib
+seaborn
+scikit-learn
+Pillow
+kaggle
+opencv-python-headless==4.9.0.80
+notebook
+
+gunicorn
