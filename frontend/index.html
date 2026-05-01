@@ -272,17 +272,34 @@
                 </div>
             </div>
 
-            <!-- AI Recommendation Card -->
-            <div class="lg:col-span-4 glass-card rounded-xl p-8 bg-surface-container-lowest/80 border-t border-secondary-container/30">
-                <div class="flex items-center gap-3 mb-4">
+            <!-- AI Recommendation Card (Arabic & Dynamic Image) -->
+            <div class="lg:col-span-4 glass-card rounded-xl p-8 bg-surface-container-lowest/80 border-t border-secondary-container/30 flex flex-col">
+                <div class="flex items-center gap-3 mb-4 justify-end">
+                    <span class="font-bold text-xs tracking-widest text-secondary-container">التشخيص الطبي (الذكاء الاصطناعي)</span>
                     <div class="w-8 h-8 rounded-full bg-secondary-container/20 flex items-center justify-center">
-                        <span class="material-symbols-outlined text-secondary-container" style="font-variation-settings: 'FILL' 1;">lightbulb</span>
+                        <span class="material-symbols-outlined text-secondary-container" style="font-variation-settings: 'FILL' 1;">medical_information</span>
                     </div>
-                    <span class="font-bold text-xs tracking-widest text-secondary-container">AI PRESCRIPTION</span>
                 </div>
-                <p id="res-recommendation" class="text-on-surface leading-relaxed text-sm">
-                    Apply a copper-based fungicide immediately. Isolate affected plants to prevent spore dispersion.
-                </p>
+                
+                <div dir="rtl" class="text-right space-y-4 flex-1">
+                    <h4 id="ar-title" class="text-lg font-bold text-secondary-container">جاري التحليل...</h4>
+                    <p id="ar-desc" class="text-on-surface text-sm leading-relaxed opacity-90">
+                        وصف بيولوجي للمرض.
+                    </p>
+                    <div class="bg-white/5 p-3 rounded-lg border border-white/10">
+                        <h5 class="text-xs text-primary-container font-bold mb-2">خطة العلاج المقترحة:</h5>
+                        <p id="ar-treatment" class="text-on-surface text-sm leading-relaxed whitespace-pre-line">
+                            خطوات العلاج هنا.
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- Dynamic Image -->
+                <div class="mt-4 w-full h-32 rounded-lg overflow-hidden border border-white/10 relative group">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent z-10 pointer-events-none"></div>
+                    <span class="absolute bottom-2 left-2 z-20 text-[10px] text-white/70 font-mono-data bg-black/50 px-2 py-1 rounded">REF_IMG_OPTIC</span>
+                    <img id="rec-image" src="" alt="Reference Image" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                </div>
             </div>
         </section>
 
@@ -349,7 +366,12 @@
     const resIcon = document.getElementById('res-icon');
     const resConfText = document.getElementById('res-conf-text');
     const resConfBar = document.getElementById('res-conf-bar');
-    const resRecommendation = document.getElementById('res-recommendation');
+    
+    // Arabic Elements
+    const arTitle = document.getElementById('ar-title');
+    const arDesc = document.getElementById('ar-desc');
+    const arTreatment = document.getElementById('ar-treatment');
+    const recImage = document.getElementById('rec-image');
 
     // Handle Drag & Drop
     dropZone.addEventListener('click', () => fileInput.click());
@@ -446,7 +468,12 @@
         // Populate Data
         resDisease.innerText = data.disease_name;
         resPlant.innerText = `PLANT: ${data.plant_name}`;
-        resRecommendation.innerText = data.recommendation;
+        
+        // Populate Arabic Prescription
+        arTitle.innerText = data.ar_title;
+        arDesc.innerText = data.ar_desc;
+        arTreatment.innerText = data.ar_treatment;
+        recImage.src = data.rec_image;
         
         const confStr = data.confidence.toFixed(1) + '%';
         resConfText.innerText = confStr;

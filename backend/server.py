@@ -44,24 +44,67 @@ def load_resources():
 # Load resources at startup
 load_resources()
 
-def get_recommendation(is_healthy, disease_name):
-    if is_healthy:
-        return "Excellent! The plant tissue structure appears perfectly normal. Maintain current care routine with proper hydration and light."
-    
+def get_recommendation_details(is_healthy, disease_name):
     disease_lower = disease_name.lower()
     
+    # Default Image Fallbacks
+    img_healthy = "https://images.unsplash.com/photo-1416879572648-52243d467fbd?w=400&q=80" # Fresh leaf
+    img_blight = "https://images.unsplash.com/photo-1622383563227-04401ab4e5ea?w=400&q=80" # Decaying/dry leaf
+    img_rust = "https://images.unsplash.com/photo-1597848212624-a19eb35e2651?w=400&q=80" # Brown/rust spots
+    img_spot = "https://images.unsplash.com/photo-1615800098779-1be32e60cca3?w=400&q=80" # Spots
+    img_virus = "https://images.unsplash.com/photo-1574868516008-01d0ed4b2a8f?w=400&q=80" # Yellowing/Mosaic
+    img_general = "https://images.unsplash.com/photo-1587824859663-d1446abafbe8?w=400&q=80" # Laboratory/sick plant
+
+    if is_healthy:
+        return {
+            "ar_title": "نبات سليم (حالة صحية ممتازة)",
+            "ar_desc": "تشير التحليلات الدقيقة للأنسجة الخلوية إلى خلو النبات من أي أعراض فطرية أو بكتيرية أو فيروسية. البناء الضوئي يعمل بكفاءة قصوى.",
+            "ar_treatment": "استمر في جدول الري المعتاد مع الحفاظ على معدلات التسميد الحالية. يرجى ضمان تعرض النبات لأشعة شمس كافية وتهوية جيدة.",
+            "image": img_healthy
+        }
+    
     if "blight" in disease_lower:
-        return "Apply a copper-based fungicide immediately. Isolate affected plants to prevent spore dispersion. Reduce overhead watering to lower humidity around the foliage canopy."
+        return {
+            "ar_title": "اللفحة الفطرية (Blight)",
+            "ar_desc": "هذا المرض الفطري الشرس يهاجم الأنسجة الحية للنبات بسرعة، مما يؤدي إلى ظهور بقع بنية داكنة وجفاف مفاجئ للأوراق، وقد يقضي على المحصول بالكامل إذا لم يُعالج.",
+            "ar_treatment": "١. رش مبيد فطري يحتوي على النحاس فوراً.\n٢. إزالة الأوراق والسيقان المصابة وإبعادها.\n٣. تجنب الري الرذاذي لتقليل الرطوبة حول الأوراق.",
+            "image": img_blight
+        }
     elif "rust" in disease_lower:
-        return "Remove and destroy infected leaves. Apply a sulfur-based fungicide. Ensure good air circulation around the plants."
+        return {
+            "ar_title": "صدأ الأوراق (Rust)",
+            "ar_desc": "يتميز بظهور بثرات أو بقع تشبه الصدأ على السطح السفلي للأوراق. الفطر يسحب الغذاء من النبات ويضعف نموه بشكل حاد.",
+            "ar_treatment": "١. تخلص من الأجزاء المصابة بحذر كي لا تتطاير الأبواغ.\n٢. استخدم مبيدات فطرية تحتوي على الكبريت.\n٣. وسّع المسافات بين النباتات لضمان تهوية ممتازة.",
+            "image": img_rust
+        }
     elif "spot" in disease_lower:
-        return "Treat with appropriate broad-spectrum fungicide. Avoid wetting leaves during watering. Remove decaying debris around the base."
+        return {
+            "ar_title": "تبقع الأوراق (Leaf Spot)",
+            "ar_desc": "يظهر على شكل بقع دائرية أو غير منتظمة بنية اللون، وغالباً ما يكون ناتجاً عن عدوى فطرية أو بكتيرية تنشط في بيئة عالية الرطوبة.",
+            "ar_treatment": "١. تطبيق مبيد فطري واسع المجال.\n٢. توجيه ماء الري للتربة مباشرة وليس للأوراق.\n٣. تنظيف التربة المحيطة من أي أوراق متساقطة.",
+            "image": img_spot
+        }
     elif "virus" in disease_lower or "mosaic" in disease_lower:
-        return "Viruses cannot be cured. Immediately remove and destroy the infected plant to prevent spread via insects. Control local aphid populations."
+        return {
+            "ar_title": "الإصابة الفيروسية (Mosaic Virus)",
+            "ar_desc": "الفيروسات تخترق الخلايا وتسبب تجعداً واصفراراً في الأوراق وضعفاً عاماً. لا يوجد علاج كيميائي يقضي على الفيروس بعد الإصابة.",
+            "ar_treatment": "١. التدخل الجراحي: اقتلاع النبات المصاب وحرقه فوراً لمنع العدوى.\n٢. مكافحة الحشرات (مثل المن) لأنها الناقل الأساسي للفيروس.\n٣. تعقيم أدوات الزراعة جيداً.",
+            "image": img_virus
+        }
     elif "mildew" in disease_lower:
-        return "Improve air circulation. Apply neem oil or a sulfur fungicide. Avoid watering late in the day to allow leaves to dry."
+        return {
+            "ar_title": "البياض الدقيقي/الزغبي (Mildew)",
+            "ar_desc": "نمو فطري يظهر كطبقة بيضاء مسحوقية على الأوراق والسيقان، يعيق عملية البناء الضوئي ويضعف الإنتاجية.",
+            "ar_treatment": "١. تحسين دورة الهواء بين النباتات.\n٢. رش زيت النيم (Neem Oil) أو مبيد فطري مناسب.\n٣. تقليل الرطوبة وتجنب الري المسائي.",
+            "image": img_spot
+        }
     else:
-        return f"Infection detected. It is highly recommended to isolate the plant and apply appropriate targeted treatment for '{disease_name}'."
+        return {
+            "ar_title": f"إصابة مُكتشفة: {disease_name}",
+            "ar_desc": "النظام استشعر وجود شذوذ بصري في أنسجة النبات يدل على إصابة مرضية تحتاج إلى تدخل سريع لمنع تفاقم الحالة.",
+            "ar_treatment": "١. عزل النبات المصاب عن باقي الحقل.\n٢. استشارة خبير زراعي متخصص للتدخل بالمبيد المناسب.\n٣. مراقبة النباتات المجاورة لأي أعراض مشابهة.",
+            "image": img_general
+        }
 
 @app.route('/predict', methods=['POST'])
 def predict():
@@ -109,10 +152,7 @@ def predict():
         
         is_healthy = "healthy" in predicted_class.lower()
         status = "Healthy" if is_healthy else "Diseased"
-        recommendation = get_recommendation(is_healthy, disease_name)
-        
-        # We can also generate a base64 of the image to display on the frontend if needed, 
-        # but the frontend already has the file locally.
+        rec_details = get_recommendation_details(is_healthy, disease_name)
         
         return jsonify({
             "success": True,
@@ -123,7 +163,10 @@ def predict():
             "confidence": confidence,
             "status": status,
             "is_healthy": is_healthy,
-            "recommendation": recommendation
+            "ar_title": rec_details["ar_title"],
+            "ar_desc": rec_details["ar_desc"],
+            "ar_treatment": rec_details["ar_treatment"],
+            "rec_image": rec_details["image"]
         })
         
     except Exception as e:
