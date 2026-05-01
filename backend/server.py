@@ -41,6 +41,16 @@ def load_resources():
     else:
         print(f"Class names file not found at {CLASS_NAMES_PATH}")
 
+    # Warm-up the model to prevent timeout on first request
+    if model is not None:
+        try:
+            print("Warming up the model (this may take a moment)...")
+            dummy_input = np.zeros((1, 224, 224, 3), dtype=np.float32)
+            model.predict(dummy_input)
+            print("Model warm-up complete!")
+        except Exception as e:
+            print(f"Error during warm-up: {e}")
+
 # Load resources at startup
 load_resources()
 
