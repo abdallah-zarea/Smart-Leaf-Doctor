@@ -74,23 +74,5 @@ Smart_Leaf_Doctor/
 - استخدام نماذج أثقل مثل ResNet50.
 - تطوير تطبيق للهواتف المحمولة (Mobile App) ليستخدمه المزارع في الحقل مباشرة.
 
----
 
-## 🎓 How to Explain This Project to the Doctor (كيف تشرح المشروع للدكتور)
-
-إليك سكربت بسيط ومباشر للبرزنتيشن:
-
-> "السلام عليكم دكتور. مشروعي بعنوان Smart Leaf Doctor، وهو عبارة عن نظام لاكتشاف أمراض أوراق النباتات (الطماطم والبطاطس) باستخدام الـ CNN.
-> 
-> استخدمنا الـ CNN لأنها ممتازة جداً في الـ Feature Extraction، يعني تقدر تطلع الخصائص زي بقع المرض وحواف الورقة والألوان لوحدها عن طريق الـ Convolution Layers.
-> 
-> لتفادي مشكلة الـ Overfitting، استخدمنا الـ Data Augmentation عشان نكبر الداتا عن طريق الـ Rotation والـ Zoom.
-> 
-> بدلاً من تدريب شبكة من الصفر، استخدمنا **Transfer Learning** وتحديداً نموذج **MobileNetV2**. ده نموذج جاهز ومتدرب على ملايين الصور، فاكتفينا بتعديل الطبقة الأخيرة (Dense layer) واستخدمنا دالة **Softmax** عشان نصنف الصورة لـ 38 فئة مختلفة.
-> 
-> عملنا تقييم للنموذج ورسمنا الـ Accuracy Curve والـ Loss Curve، وبرضو استخدمنا الـ **Confusion Matrix** عشان نشوف لو الموديل بيتلخبط بين أمراض متشابهة زي الـ Early Blight والـ Late Blight.
-> 
-> وفي النهاية عملنا Web App بسيط باستخدام Streamlit عشان نخلي الموديل Interactive وتقدر ترفع عليه الصورة ويطلعلك التنبؤ والتوصية العلاجية. شكراً لحضرتك."
-
----
 *Disclaimer: This is an educational academic project built for a university Neural Networks course. It is not a real-world agricultural diagnosis system.*
